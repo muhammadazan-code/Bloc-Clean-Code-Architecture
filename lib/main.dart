@@ -1,3 +1,5 @@
+import 'package:bloc_part_two/config/routes/routes_action.dart';
+import 'package:bloc_part_two/config/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,30 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.white,
-          title: Center(
-            child: Text(
-              'B L O C',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-        body: SafeArea(
-          child: Center(
-            child: Text(
-              "Bloc Clean Code Architecture",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ),
+      initialRoute: RoutesName.splashView,
+      onGenerateRoute: RoutesAction.generateRoute,
     );
   }
 }
