@@ -2,6 +2,7 @@ import 'package:bloc_part_two/config/components/internet_exception.dart';
 import 'package:bloc_part_two/config/components/loading_widget.dart';
 import 'package:bloc_part_two/config/components/round_button.dart';
 import 'package:bloc_part_two/config/routes/routes_name.dart';
+import 'package:bloc_part_two/data/exceptions/app_exceptions.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -15,6 +16,11 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          throw NoInternetException("No Internet Connection");
+        },
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
