@@ -16,7 +16,7 @@ class NoInternetException extends AppExceptions {
 
 class UnauthorizedException extends AppExceptions {
   UnauthorizedException([String? message])
-    : super(message, "You don't have access.");
+    : super(message, "Unauthorized Request");
 }
 
 class RequestTimeOut extends AppExceptions {
