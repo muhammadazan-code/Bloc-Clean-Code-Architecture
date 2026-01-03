@@ -1,0 +1,24 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user_model.g.dart';
+part 'user_model.freezed.dart';
+
+@freezed
+class UserModel with _$UserModel {
+  factory UserModel({@Default('') String token, @Default('') String error}) =
+      _UserModel;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+
+  @override
+  String get error => throw UnimplementedError();
+
+  @override
+  Map<String, dynamic> toJson() {
+    throw UnimplementedError();
+  }
+
+  @override
+  String get token => throw UnimplementedError();
+}
