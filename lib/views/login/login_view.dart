@@ -1,4 +1,5 @@
 import 'package:bloc_part_two/bloc/login_bloc.dart';
+import 'package:bloc_part_two/main.dart';
 import 'package:bloc_part_two/models/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,8 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    _loginBloc = LoginBloc();
+    // _loginBloc = LoginBloc(loginRepository: LoginRepository());
+    _loginBloc = LoginBloc(loginRepository: getIt());
   }
 
   @override

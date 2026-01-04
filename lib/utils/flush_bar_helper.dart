@@ -19,7 +19,7 @@ class FlushBarHelper {
         message: message,
         messageColor: Colors.white,
         icon: Icon(Icons.error, color: AppColors.whiteColor),
-      )..show(context),
+      ),
     );
   }
 
@@ -31,8 +31,8 @@ class FlushBarHelper {
         borderRadius: BorderRadius.circular(20),
         flushbarPosition: FlushbarPosition.TOP,
         backgroundColor: Colors.green,
-        reverseAnimationCurve: Curves.bounceOut,
-        forwardAnimationCurve: Curves.bounceIn,
+        reverseAnimationCurve: Curves.easeInBack,
+        forwardAnimationCurve: Curves.easeInCirc,
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.all(10),
         message: message,
