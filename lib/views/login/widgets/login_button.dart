@@ -1,4 +1,5 @@
 import 'package:bloc_part_two/bloc/login_bloc.dart';
+import 'package:bloc_part_two/utils/enums/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,16 +9,37 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginStates>(
-      buildWhen: (previous, current) => false,
-      builder: (context, state) {
-        return ElevatedButton(
-          onPressed: () {
-            if (formKey.currentState!.validate()) {}
-          },
-          child: Center(child: Text("Login")),
-        );
+    return BlocListener<LoginBloc, LoginStates>(
+      listener: (context, state) {
+        if (state.postApiStatus == PostApiStatus.error) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(content: Text(state.message.toString())));
+        }
+        if (state.postApiStatus == PostApiStatus.success) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(content: Text(state.message.toString())));
+        }
+        if (state.postApiStatus == PostApiStatus.loading) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(content: Text(state.message.toString())));
+        }
       },
+      child: BlocBuilder<LoginBloc, LoginStates>(
+        buildWhen: (previous, current) => false,
+        builder: (context, state) {
+          return ElevatedButton(
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                context.read<LoginBloc>().add(SubmitButton());
+              }
+            },
+            child: Center(child: Text("Login")),
+          );
+        },
+      ),
     );
   }
 }
