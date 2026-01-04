@@ -1,5 +1,7 @@
 import 'package:bloc_part_two/bloc/login_bloc.dart';
+import 'package:bloc_part_two/config/colors/color.dart';
 import 'package:bloc_part_two/utils/enums/enum.dart';
+import 'package:bloc_part_two/utils/flush_bar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,21 +12,17 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginStates>(
+      listenWhen: (current, previous) =>
+          current.postApiStatus != previous.postApiStatus,
       listener: (context, state) {
         if (state.postApiStatus == PostApiStatus.error) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(state.message.toString())));
+          FlushBarHelper.flushBarErrorMessage(
+            state.message.toString(),
+            context,
+          );
         }
         if (state.postApiStatus == PostApiStatus.success) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(state.message.toString())));
-        }
-        if (state.postApiStatus == PostApiStatus.loading) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(state.message.toString())));
+          FlushBarHelper.flushBarSuccessMessage("Login Successfully", context);
         }
       },
       child: BlocBuilder<LoginBloc, LoginStates>(
@@ -36,7 +34,13 @@ class LoginButton extends StatelessWidget {
                 context.read<LoginBloc>().add(SubmitButton());
               }
             },
-            child: Center(child: Text("Login")),
+            child: state.postApiStatus == PostApiStatus.loading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.greenColor,
+                    ),
+                  )
+                : Center(child: Text("Login")),
           );
         },
       ),
