@@ -1,5 +1,4 @@
-import 'package:bloc_part_two/config/routes/routes_name.dart';
-import 'package:bloc_part_two/views/home/home_view.dart';
+import 'package:bloc_part_two/services/splash_services/splash_service.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -10,20 +9,17 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final SplashServices _splashServices = SplashServices();
+  @override
+  void initState() {
+    super.initState();
+    _splashServices.isLogin(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TextButton(
-        onPressed: () {
-          // Traditional way of doing things
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => HomeView()),
-          // );
-          Navigator.pushNamed(context, RoutesName.loginView);
-        },
-        child: Text("Home"),
-      ),
+      appBar: AppBar(title: Center(child: Text("Splash Screen"))),
     );
   }
 }
